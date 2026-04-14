@@ -103,13 +103,36 @@ main {
 
 .tableau-embed {
   width: 100%;
-  overflow: hidden;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.tableau-embed .tableauPlaceholder,
-.tableau-embed .tableauViz {
+.tableau-note {
+  color: #d0d0d0;
+  font-size: 0.95rem;
+}
+
+.tableau-scroll-frame {
   width: 100%;
+  max-width: 100%;
+  max-height: 700px;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid #4b5563;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+}
+
+.tableau-scroll-frame .tableauPlaceholder,
+.tableau-scroll-frame .tableauViz {
+  min-width: 1120px;
+}
+
+.tableau-scroll-frame.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .video-embed {
