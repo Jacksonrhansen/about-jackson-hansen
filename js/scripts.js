@@ -67,4 +67,48 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    const tableauEmbeds = document.querySelectorAll('.tableau-scroll-frame');
+
+    tableauEmbeds.forEach((embed) => {
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let scrollLeft = 0;
+        let scrollTop = 0;
+
+        embed.addEventListener('mousedown', (event) => {
+            isDragging = true;
+            embed.classList.add('is-dragging');
+            startX = event.pageX - embed.offsetLeft;
+            startY = event.pageY - embed.offsetTop;
+            scrollLeft = embed.scrollLeft;
+            scrollTop = embed.scrollTop;
+        });
+
+        embed.addEventListener('mouseleave', () => {
+            isDragging = false;
+            embed.classList.remove('is-dragging');
+        });
+
+        embed.addEventListener('mouseup', () => {
+            isDragging = false;
+            embed.classList.remove('is-dragging');
+        });
+
+        embed.addEventListener('mousemove', (event) => {
+            if (!isDragging) {
+                return;
+            }
+
+            event.preventDefault();
+            const x = event.pageX - embed.offsetLeft;
+            const y = event.pageY - embed.offsetTop;
+            const walkX = x - startX;
+            const walkY = y - startY;
+
+            embed.scrollLeft = scrollLeft - walkX;
+            embed.scrollTop = scrollTop - walkY;
+        });
+    });
+
 });
